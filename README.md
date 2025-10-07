@@ -45,3 +45,32 @@ The primary goal of this project is to create a **robust**, **scalable**, and **
 
 
 
+# Local Setup & Run 
+
+## Clone the repository
+
+git clone <TERA_GITHUB_REPO_URL>
+
+
+## Database Configuration
+
+-- **Make sure you have a MySQL database server running.**
+
+-- **Create a new database (schema) named hospital_db.**
+
+-- **Open src/main/resources/application.properties and update the following properties with your MySQL credentials:**
+
+- spring.datasource.username=<YOUR_USERNAME>
+- spring.datasource.password=<YOUR_PASSWORD>
+
+
+## Run the application
+
+-- **Open the project in your IDE (like IntelliJ IDEA).**
+
+-- **Navigate to the main application class HospitalManagementSystemApiApplication.java and run it.**
+
+-- **The application will start on http://localhost:8080**
+
+
+
