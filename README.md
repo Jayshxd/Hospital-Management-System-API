@@ -32,4 +32,16 @@ The primary goal of this project is to create a **robust**, **scalable**, and **
 - Endpoints to create multiple patients, doctors, or insurances in a single API call.
 
 
+## Tech Stack & Tools
+
+- **Language:** Java 17  
+- **Framework:** Spring Boot 3.x  
+- **Data Persistence:** Spring Data JPA / Hibernate  
+- **Database:** MySQL  
+- **Build Tool:** Apache Maven  
+- **API Testing:** Postman  
+- **Database GUI:** DBeaver  
+- **Libraries:** Lombok (for reducing boilerplate code)
+
+
 
