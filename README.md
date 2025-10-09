@@ -1,5 +1,8 @@
 # Hospital Management System (HMS) API
 
+#Status
+- working on security...
+
 ## Introduction
 The **Hospital Management System (HMS) API** is a comprehensive backend solution built using **Java** and the **Spring Boot** framework.  
 This project simulates real-world functionalities required to efficiently manage **patients**, **doctors**, **appointments**, and **insurance details** within a hospital ecosystem.  
