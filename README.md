@@ -1,6 +1,6 @@
 # Hospital Management System (HMS) API
 
-#Status
+# Status
 - working on security...
 
 ## Introduction
