@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("public/doctors")
+@RequestMapping("doctors")
 public class DoctorController {
     private final DoctorService doctorService;
     @Autowired
