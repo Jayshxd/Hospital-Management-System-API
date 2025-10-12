@@ -8,6 +8,7 @@ import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.Role;
 import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.User;
 import com.jayesh.hospitalmanagementsystemapi.authentication.role.repo.RoleRepo;
 import com.jayesh.hospitalmanagementsystemapi.authentication.role.repo.UserRepo;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.util.AuthUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ public class AuthService {
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final AuthUtil authUtil;
 
     public AuthResponseDTO userAndRoleRegister(AuthRequestDTO req) {
         User user = new User();
@@ -67,6 +69,8 @@ public class AuthService {
         );
 
         User user = (User)authentication.getPrincipal();
+        String jwt = authUtil.generateAccessToken(user);
+        return new LoginResponseDTO(jwt,user.getId());
 
     }
 }
