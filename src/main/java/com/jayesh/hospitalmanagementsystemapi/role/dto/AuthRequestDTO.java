@@ -14,5 +14,5 @@ import java.util.Set;
 public class AuthRequestDTO {
     private String username;
     private String password;
-    private Set<Role> roles;
+    private Set<String> roles;
 }
