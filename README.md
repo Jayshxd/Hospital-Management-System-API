@@ -2,6 +2,8 @@
 
 # Status
 - working on security...
+- stored jwt secret key in env variables and not in project files
+- 
 
 ## Introduction
 The **Hospital Management System (HMS) API** is a comprehensive backend solution built using **Java** and the **Spring Boot** framework.  
