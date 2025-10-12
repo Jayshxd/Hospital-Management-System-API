@@ -11,7 +11,9 @@ import com.jayesh.hospitalmanagementsystemapi.repository.DoctorRepo;
 import com.jayesh.hospitalmanagementsystemapi.repository.InsuranceRepo;
 import com.jayesh.hospitalmanagementsystemapi.repository.PatientRepo;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,13 +40,13 @@ public class PatientService {
         this.appointmentServices = appointmentServices;
     }
 
-
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public PatientResponseDTO getPatientById(Long id){
         Patient patient = patientRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
         return new PatientResponseDTO(patient);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     public PatientResponseDTO updatePatientDetails(Long id, PatientDTO  patientDTO){
         Patient patient = patientRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
         if(patientDTO.getName() != null){
@@ -61,7 +63,7 @@ public class PatientService {
     }
 
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     public PatientResponseDTO addPatient(PatientDTO patientDTO){
         Patient patient = new Patient(patientDTO);
         Patient savedPatient =patientRepo.save(patient);
@@ -74,7 +76,7 @@ public class PatientService {
         return appointmentRepo.findAllAppointmentsByPatient_Id(id).stream().map(AppointmentDTO::new).collect(Collectors.toList());
     }
 
-
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public InsuranceResponseDTO getInsuranceDetails(Long id){
         Patient patient = patientRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
 
@@ -84,13 +86,14 @@ public class PatientService {
         }
         return new InsuranceResponseDTO(insurance);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     public void dischargePatient(Long id){
         Patient patient = patientRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
         patient.setStatus(Status.DISCHARGED);
         patientRepo.save(patient);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public PatientResponseDTO updatePatientDetailsByPut(Long id ,PatientDTO patientDTO){
         Patient patient = patientRepo.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
         patient.setName(patientDTO.getName());
@@ -101,13 +104,14 @@ public class PatientService {
         return new PatientResponseDTO(patient);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     public void deletePatient(Long id){
         patientRepo.deleteById(id);
     }
 
     // PatientService.java
 
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public List<PatientResponseDTO> findPatients(String name, BloodGroups bloodGroup, Gender gender) {
         List<Patient> patients;
 
@@ -129,7 +133,7 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public Boolean checkValidity(Long patientId){
         if(patientRepo.existsById(patientId)){
             return insuranceServices.checkValidity(patientId);
@@ -137,6 +141,7 @@ public class PatientService {
         throw new EntityNotFoundException("Patient Not Found with Id : "+patientId);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public PatientResponseDTO assignInsuranceToThePatient(Long patientId, Long insuranceId){
         return insuranceServices.assignInsuranceToPatient(patientId, insuranceId);
     }
@@ -144,12 +149,14 @@ public class PatientService {
         insuranceServices.removeInsuranceFromPatient(id);
     }
 
-
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
     public List<AppointmentResponseDTO> getAllUpcomingAppointmentsForPatient(Long patientId){
         return appointmentServices.getAllUpcomingAppointmentsForPatient(patientId);
     }
 
 
+    @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PatientResponseDTO> addMultiplePatients(List<PatientDTO> patientDTOList) {
         // 1. DTO ki list ko Entity ki list mein convert karo
         List<Patient> patients = patientDTOList.stream()
