@@ -1,13 +1,18 @@
-package com.jayesh.hospitalmanagementsystemapi.role.service;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.service;
 
-import com.jayesh.hospitalmanagementsystemapi.role.dto.AuthRequestDTO;
-import com.jayesh.hospitalmanagementsystemapi.role.dto.AuthResponseDTO;
-import com.jayesh.hospitalmanagementsystemapi.role.entity.Role;
-import com.jayesh.hospitalmanagementsystemapi.role.entity.User;
-import com.jayesh.hospitalmanagementsystemapi.role.repo.RoleRepo;
-import com.jayesh.hospitalmanagementsystemapi.role.repo.UserRepo;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.AuthRequestDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.AuthResponseDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.LoginRequestDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.LoginResponseDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.Role;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.User;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.repo.RoleRepo;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.repo.UserRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,7 @@ public class AuthService {
     private final UserRepo  userRepo;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     public AuthResponseDTO userAndRoleRegister(AuthRequestDTO req) {
         User user = new User();
@@ -52,5 +58,15 @@ public class AuthService {
     }
 
 
+    public LoginResponseDTO login(LoginRequestDTO loginRequestDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequestDTO.getUsername(),
+                        loginRequestDTO.getPassword()
+                )
+        );
 
+        User user = (User)authentication.getPrincipal();
+
+    }
 }
