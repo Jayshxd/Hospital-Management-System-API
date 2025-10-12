@@ -32,6 +32,9 @@ public class AuthService {
     private final AuthUtil authUtil;
 
     public AuthResponseDTO userAndRoleRegister(AuthRequestDTO req) {
+        if(userRepo.findByUsername(req.getUsername()).isPresent()){
+            throw new IllegalStateException("Username is already exists!!!");
+        }
         User user = new User();
         user.setUsername(req.getUsername());
         user.setPassword(passwordEncoder.encode(req.getPassword()));
