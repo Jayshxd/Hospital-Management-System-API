@@ -1,6 +1,6 @@
-package com.jayesh.hospitalmanagementsystemapi.role.repo;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.repo;
 
-import com.jayesh.hospitalmanagementsystemapi.role.entity.User;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

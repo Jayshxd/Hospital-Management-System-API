@@ -1,5 +1,4 @@
-package com.jayesh.hospitalmanagementsystemapi.role.dto;
-import com.jayesh.hospitalmanagementsystemapi.role.entity.Role;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

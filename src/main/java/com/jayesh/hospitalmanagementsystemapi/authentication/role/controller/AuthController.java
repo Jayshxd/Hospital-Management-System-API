@@ -1,8 +1,10 @@
-package com.jayesh.hospitalmanagementsystemapi.role.controller;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.controller;
 
-import com.jayesh.hospitalmanagementsystemapi.role.dto.AuthRequestDTO;
-import com.jayesh.hospitalmanagementsystemapi.role.dto.AuthResponseDTO;
-import com.jayesh.hospitalmanagementsystemapi.role.service.AuthService;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.AuthRequestDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.AuthResponseDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.LoginRequestDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.dto.LoginResponseDTO;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,10 +27,18 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping("")
+    @PostMapping("/bulk")
     public ResponseEntity<List<AuthResponseDTO>> post(@RequestBody
                                                       List<AuthRequestDTO> authRequestDTOList) {
         List<AuthResponseDTO> authResponseDTOList = authService.userAndRoleListInBulk(authRequestDTOList);
         return ResponseEntity.status(HttpStatus.CREATED).body(authResponseDTOList);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> post(
+            @RequestBody LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO res =  authService.login(loginRequestDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }

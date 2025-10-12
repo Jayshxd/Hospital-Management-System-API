@@ -1,4 +1,4 @@
-package com.jayesh.hospitalmanagementsystemapi.role.entity;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

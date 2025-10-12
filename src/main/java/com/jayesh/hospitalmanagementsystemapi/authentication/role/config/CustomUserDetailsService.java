@@ -1,7 +1,7 @@
-package com.jayesh.hospitalmanagementsystemapi.role.config;
+package com.jayesh.hospitalmanagementsystemapi.authentication.role.config;
 
-import com.jayesh.hospitalmanagementsystemapi.role.entity.User;
-import com.jayesh.hospitalmanagementsystemapi.role.repo.UserRepo;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.entity.User;
+import com.jayesh.hospitalmanagementsystemapi.authentication.role.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
